@@ -4,7 +4,7 @@ let timeBlockContainer = $(".container");
 // connect to the save button for each individual time block
 
 // STARTING DATA ==========================
-let timeBlocks = [];
+let descriptions = ["", "", "", "", "", "", "", "", "", ""];
 let timeCondition = "future";
 let timeCurrent = [9, 10, 11, 12, 1, 2, 3, 4, 5];
 
@@ -19,7 +19,7 @@ function displayTimeBlocks() {
   for (let i = 0; i < 9; i++) {
     let divTag = $('<div class="row time-block">');
     divTag.html(`<div class="hour col-md-1">${timeCurrent[i]}:00</div>
-        <textarea class="description col-md-10 ${timeCondition}">Description</textarea>
+        <textarea class="description col-md-10 ${timeCondition}" placeholder="Description">${descriptions[i]}</textarea>
         <button class="col-md-1 btn saveBtn">Save</button>`);
     timeBlockContainer.append(divTag);
   }
