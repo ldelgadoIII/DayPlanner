@@ -4,21 +4,30 @@ let timeBlockContainer = $(".container");
 // connect to the save button for each individual time block
 
 // STARTING DATA ==========================
-// An array to save data objects for time-blocks
 let timeBlocks = [];
-let timeCondition = "present";
+let timeCondition = "future";
+let timeCurrent = [9, 10, 11, 12, 1, 2, 3, 4, 5];
 
 // FUNCTIONS ==============================
-// display time blocks
+// Run when the page loads
+function init() {
+  displayTimeBlocks();
+}
 
-let divTag = $('<div class="row time-block">');
-divTag.html(`<div class="hour col-md-1">9:00</div>
-<textarea class="description col-md-10 ${timeCondition}">Description</textarea>
-<button class="col-md-1 btn saveBtn">Save</button>`);
-timeBlockContainer.append(divTag);
+// display 12 rows of time blocks
+function displayTimeBlocks() {
+  for (let i = 0; i < 9; i++) {
+    let divTag = $('<div class="row time-block">');
+    divTag.html(`<div class="hour col-md-1">${timeCurrent[i]}:00</div>
+        <textarea class="description col-md-10 ${timeCondition}">Description</textarea>
+        <button class="col-md-1 btn saveBtn">Save</button>`);
+    timeBlockContainer.append(divTag);
+  }
+}
 
 // something to save the data within the time block
 // something to change the color of the text areas depending on the time of day
 
 // INITIALIZE =============================
+init();
 $("#currentDay").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
