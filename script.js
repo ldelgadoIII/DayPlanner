@@ -15,13 +15,14 @@ function init() {
   displayTimeBlocks();
 
   // Retrieve stored data
-  let storedText = localStorage.getItem("textAreaVals");
+  let storedText = JSON.parse(localStorage.getItem("textAreaVals"));
   console.log(descriptions);
-  console.log(typeof storedText);
+  console.log(storedText[1]);
 }
 
-// display 12 rows of time blocks
+// Display 12 rows of time blocks
 function displayTimeBlocks() {
+  // Change the color of the textarea depending on the time of day
   for (let i = 0; i < 9; i++) {
     if (Number(moment().format("H")) === timeMilitary[i]) {
       timeCondition = "present";
@@ -39,9 +40,6 @@ function displayTimeBlocks() {
   }
 }
 
-// something to save the data within the time block
-// something to change the color of the text areas depending on the time of day
-
 // INITIALIZE =============================
 init();
 $("#currentDay").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
@@ -51,14 +49,10 @@ $("#currentDay").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
 $("button").on("click", function () {
   let saveBtnVal = $(this).val();
   let currentTextVal = $(`#saveBtn-${saveBtnVal}`).val();
-  descriptions.push(currentTextVal);
+  descriptions[saveBtnVal] = currentTextVal;
   console.log(typeof descriptions);
-  localStorage.setItem("textAreaVals", descriptions);
-});
 
-// console.log(currentTextVal);
-// console.log(descriptions[saveBtnVal]);
-// let currentTextID = "#" + $(`#saveBtn-${currentBtnVal}`).attr("id");
-// console.log($(`#saveBtn-${currentBtnVal}`).attr("id"));
-// console.log("The value of this text area is " + $(this).val());
-// console.log("The value of this text area is " + $(this).attr("id"))
+  // save items pushed into description array into local storage
+  localStorage.setItem("textAreaVals", JSON.stringify(descriptions));
+  console.log("This is line 57 ", localStorage.getItem("textAreaVals"));
+});
