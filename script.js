@@ -12,6 +12,11 @@ let timeCurrent = [9, 10, 11, 12, 1, 2, 3, 4, 5];
 // Run when the page loads
 function init() {
   displayTimeBlocks();
+
+  // Retrieve stored data
+  let storedText = localStorage.getItem("textAreaVals");
+  console.log(descriptions);
+  console.log(typeof storedText);
 }
 
 // display 12 rows of time blocks
@@ -37,9 +42,12 @@ $("#currentDay").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
 $("button").on("click", function () {
   let saveBtnVal = $(this).val();
   let currentTextVal = $(`#saveBtn-${saveBtnVal}`).val();
-  descriptions[saveBtnVal] = currentTextVal;
+  descriptions.push(currentTextVal);
+  console.log(typeof descriptions);
   localStorage.setItem("textAreaVals", descriptions);
 });
+
+console.log(moment.format("H"));
 
 // console.log(currentTextVal);
 // console.log(descriptions[saveBtnVal]);
