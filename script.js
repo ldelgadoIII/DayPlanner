@@ -16,6 +16,11 @@ function init() {
   if (localStorage.getItem("textAreaVals")) {
     descriptions = JSON.parse(localStorage.getItem("textAreaVals"));
   }
+  // Continually display and update current time
+  setInterval(function () {
+    $("#currentDay").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
+  });
+
   // Display planner
   displayTimeBlocks();
 }
@@ -45,7 +50,6 @@ function displayTimeBlocks() {
 
 // INITIALIZE =============================
 init();
-$("#currentDay").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
 
 // USER INTERACTIONS ======================
 // Listen for when save button is clicked to save value in textarea
