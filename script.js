@@ -4,7 +4,7 @@ let timeBlockContainer = $(".container");
 // connect to the save button for each individual time block
 
 // STARTING DATA ==========================
-let descriptions = ["", "", "", "", "", "", "", "", "", ""];
+let descriptions = [];
 let timeCondition = "future";
 let timeCurrent = [9, 10, 11, 12, 1, 2, 3, 4, 5];
 
@@ -19,7 +19,7 @@ function displayTimeBlocks() {
   for (let i = 0; i < 9; i++) {
     let divTag = $('<div class="row time-block">');
     divTag.html(`<div class="hour col-md-1">${timeCurrent[i]}:00</div>
-      <textarea class="description col-md-10 ${timeCondition}" id="saveBtn-${i}" placeholder="Description">${descriptions[i]}</textarea>
+      <textarea class="description col-md-10 ${timeCondition}" id="saveBtn-${i}" placeholder="Description"></textarea>
       <button class="col-md-1 btn saveBtn" id="saveBtn" value="${i}">Save</button>`);
     timeBlockContainer.append(divTag);
   }
@@ -38,10 +38,11 @@ $("button").on("click", function () {
   let saveBtnVal = $(this).val();
   let currentTextVal = $(`#saveBtn-${saveBtnVal}`).val();
   descriptions[saveBtnVal] = currentTextVal;
-  console.log(currentTextVal);
-  console.log(descriptions[saveBtnVal]);
+  localStorage.setItem("textAreaVals", descriptions);
 });
 
+// console.log(currentTextVal);
+// console.log(descriptions[saveBtnVal]);
 // let currentTextID = "#" + $(`#saveBtn-${currentBtnVal}`).attr("id");
 // console.log($(`#saveBtn-${currentBtnVal}`).attr("id"));
 // console.log("The value of this text area is " + $(this).val());
