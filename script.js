@@ -40,18 +40,15 @@ let descriptions = [
 // FUNCTIONS ==============================
 // Run when the page loads
 function init() {
-  displayTimeBlocks();
   // Retrieve stored data
-  let storedText = JSON.parse(localStorage.getItem("textAreaVals"));
-
-  descriptions.forEach((element, index) => {
-    element[index].textarea = storedText[index].textArea;
-  });
-
-  // console.log(storedText[1].textArea);
+  if (localStorage.getItem("textAreaVals")) {
+    descriptions = JSON.parse(localStorage.getItem("textAreaVals"));
+  }
+  // Display planner
+  displayTimeBlocks();
 }
 
-// Display 12 rows of time blocks
+// Create rows of time blocks
 function displayTimeBlocks() {
   // Change the color of the textarea depending on the time of day
   for (let i = 0; i < 9; i++) {
@@ -65,7 +62,7 @@ function displayTimeBlocks() {
 
     let divTag = $('<div class="row time-block">');
     divTag.html(`<div class="hour col-md-1">${timeCurrent[i]}:00</div>
-      <textarea class="description col-md-10 ${timeCondition}" id="saveBtn-${i}" placeholder="Description">${descriptions[1].textArea}</textarea>
+      <textarea class="description col-md-10 ${timeCondition}" id="saveBtn-${i}" placeholder="Description">${descriptions[i].textArea}</textarea>
       <button class="col-md-1 btn saveBtn" id="saveBtn" value="${i}">Save</button>`);
     timeBlockContainer.append(divTag);
   }
@@ -85,6 +82,3 @@ $("button").on("click", function () {
   // save items pushed into description array into local storage
   localStorage.setItem("textAreaVals", JSON.stringify(descriptions));
 });
-
-// CONSOLE LOGS ===========================
-// console.log(descriptions[0].textArea);
