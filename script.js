@@ -19,7 +19,7 @@ function displayTimeBlocks() {
   for (let i = 0; i < 9; i++) {
     let divTag = $('<div class="row time-block">');
     divTag.html(`<div class="hour col-md-1">${timeCurrent[i]}:00</div>
-      <textarea class="description col-md-10 ${timeCondition}" placeholder="Description">${descriptions[i]}</textarea>
+      <textarea class="description col-md-10 ${timeCondition}" id="saveBtn-${i}" placeholder="Description">${descriptions[i]}</textarea>
       <button class="col-md-1 btn saveBtn" id="saveBtn" value="${i}">Save</button>`);
     timeBlockContainer.append(divTag);
   }
@@ -33,7 +33,14 @@ init();
 $("#currentDay").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
 
 // USER INTERACTIONS ======================
-// Listen for when save button is clicked
+// Listen for when save button is clicked to save value in textarea
 $("button").on("click", function () {
-  console.log("The value of this button is " + $(this).val());
+  let saveBtnVal = $(this).val();
+  let currentTextVal = $(`#saveBtn-${saveBtnVal}`).val();
+  console.log(currentTextVal);
 });
+
+// let currentTextID = "#" + $(`#saveBtn-${currentBtnVal}`).attr("id");
+// console.log($(`#saveBtn-${currentBtnVal}`).attr("id"));
+// console.log("The value of this text area is " + $(this).val());
+// console.log("The value of this text area is " + $(this).attr("id"))
