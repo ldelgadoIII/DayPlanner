@@ -4,20 +4,51 @@ let timeBlockContainer = $(".container");
 // connect to the save button for each individual time block
 
 // STARTING DATA ==========================
-let descriptions = [];
 let timeCondition = "future";
 let timeCurrent = [9, 10, 11, 12, 1, 2, 3, 4, 5];
 let timeMilitary = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+let descriptions = [
+  {
+    textArea: "",
+  },
+  {
+    textArea: "",
+  },
+  {
+    textArea: "",
+  },
+  {
+    textArea: "",
+  },
+  {
+    textArea: "",
+  },
+  {
+    textArea: "",
+  },
+  {
+    textArea: "",
+  },
+  {
+    textArea: "",
+  },
+  {
+    textArea: "",
+  },
+];
 
 // FUNCTIONS ==============================
 // Run when the page loads
 function init() {
   displayTimeBlocks();
-
   // Retrieve stored data
   let storedText = JSON.parse(localStorage.getItem("textAreaVals"));
-  console.log(descriptions);
-  console.log(storedText[1]);
+
+  descriptions.forEach((element, index) => {
+    element[index].textarea = storedText[index].textArea;
+  });
+
+  // console.log(storedText[1].textArea);
 }
 
 // Display 12 rows of time blocks
@@ -34,7 +65,7 @@ function displayTimeBlocks() {
 
     let divTag = $('<div class="row time-block">');
     divTag.html(`<div class="hour col-md-1">${timeCurrent[i]}:00</div>
-      <textarea class="description col-md-10 ${timeCondition}" id="saveBtn-${i}" placeholder="Description"></textarea>
+      <textarea class="description col-md-10 ${timeCondition}" id="saveBtn-${i}" placeholder="Description">${descriptions[1].textArea}</textarea>
       <button class="col-md-1 btn saveBtn" id="saveBtn" value="${i}">Save</button>`);
     timeBlockContainer.append(divTag);
   }
@@ -49,10 +80,11 @@ $("#currentDay").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
 $("button").on("click", function () {
   let saveBtnVal = $(this).val();
   let currentTextVal = $(`#saveBtn-${saveBtnVal}`).val();
-  descriptions[saveBtnVal] = currentTextVal;
-  console.log(typeof descriptions);
+  descriptions[saveBtnVal].textArea = currentTextVal;
 
   // save items pushed into description array into local storage
   localStorage.setItem("textAreaVals", JSON.stringify(descriptions));
-  console.log("This is line 57 ", localStorage.getItem("textAreaVals"));
 });
+
+// CONSOLE LOGS ===========================
+// console.log(descriptions[0].textArea);
