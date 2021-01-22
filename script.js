@@ -7,35 +7,7 @@ let timeBlockContainer = $(".container");
 let timeCondition = "future";
 let timeCurrent = [9, 10, 11, 12, 1, 2, 3, 4, 5];
 let timeMilitary = [9, 10, 11, 12, 13, 14, 15, 16, 17];
-let descriptions = [
-  {
-    textArea: "",
-  },
-  {
-    textArea: "",
-  },
-  {
-    textArea: "",
-  },
-  {
-    textArea: "",
-  },
-  {
-    textArea: "",
-  },
-  {
-    textArea: "",
-  },
-  {
-    textArea: "",
-  },
-  {
-    textArea: "",
-  },
-  {
-    textArea: "",
-  },
-];
+let descriptions = [];
 
 // FUNCTIONS ==============================
 // Run when the page loads
@@ -60,9 +32,12 @@ function displayTimeBlocks() {
       timeCondition = "future";
     }
 
+    objectTemplate = { textArea: "" };
+    descriptions.push(objectTemplate);
+
     let divTag = $('<div class="row time-block">');
     divTag.html(`<div class="hour col-md-1">${timeCurrent[i]}:00</div>
-      <textarea class="description col-md-10 ${timeCondition}" id="saveBtn-${i}" placeholder="Description">${descriptions[i].textArea}</textarea>
+      <textarea class="description col-md-10 ${timeCondition}" id="saveBtn-${i}" placeholder="Nothing Scheduled">${descriptions[i].textArea}</textarea>
       <button class="col-md-1 btn saveBtn" id="saveBtn" value="${i}">Save</button>`);
     timeBlockContainer.append(divTag);
   }
