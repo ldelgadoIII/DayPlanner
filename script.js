@@ -7,6 +7,7 @@ let timeBlockContainer = $(".container");
 let descriptions = [];
 let timeCondition = "future";
 let timeCurrent = [9, 10, 11, 12, 1, 2, 3, 4, 5];
+let timeMilitary = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 
 // FUNCTIONS ==============================
 // Run when the page loads
@@ -22,6 +23,14 @@ function init() {
 // display 12 rows of time blocks
 function displayTimeBlocks() {
   for (let i = 0; i < 9; i++) {
+    if (Number(moment().format("H")) === timeMilitary[i]) {
+      timeCondition = "present";
+    } else if (Number(moment().format("H")) > timeMilitary[i]) {
+      timeCondition = "past";
+    } else {
+      timeCondition = "future";
+    }
+
     let divTag = $('<div class="row time-block">');
     divTag.html(`<div class="hour col-md-1">${timeCurrent[i]}:00</div>
       <textarea class="description col-md-10 ${timeCondition}" id="saveBtn-${i}" placeholder="Description"></textarea>
@@ -46,8 +55,6 @@ $("button").on("click", function () {
   console.log(typeof descriptions);
   localStorage.setItem("textAreaVals", descriptions);
 });
-
-console.log(moment.format("H"));
 
 // console.log(currentTextVal);
 // console.log(descriptions[saveBtnVal]);
