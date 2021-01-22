@@ -37,7 +37,9 @@ $("#currentDay").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
 $("button").on("click", function () {
   let saveBtnVal = $(this).val();
   let currentTextVal = $(`#saveBtn-${saveBtnVal}`).val();
+  descriptions[saveBtnVal] = currentTextVal;
   console.log(currentTextVal);
+  console.log(descriptions[saveBtnVal]);
 });
 
 // let currentTextID = "#" + $(`#saveBtn-${currentBtnVal}`).attr("id");
